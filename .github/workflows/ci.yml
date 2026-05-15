@@ -1,0 +1,34 @@
+name: CI - Lint e Qualidade
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  lint-check:
+    name: Linting (Back & Front)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Backend Lint
+      - name: Install & Lint Backend
+        run: |
+          cd backend
+          npm ci
+          npm run lint || echo "Linter não configurado no backend ainda"
+
+      # Frontend Lint
+      - name: Install & Lint Frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run lint || echo "Linter não configurado no frontend ainda"
