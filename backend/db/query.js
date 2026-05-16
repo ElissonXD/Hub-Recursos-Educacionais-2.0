@@ -1,12 +1,32 @@
+// Importações
+
 const pool = require('./pool')
 
+// Funções querys
+
 async function inserirAula(dados){
-    const {título, objetivo, resumo, data, disciplina, conteúdos, recursos, tags} = dados;
+    const {título, objetivo, resumo, data, disciplina, conteúdos, recursos, tags, cadastro} = dados;
 
     await pool.query(`
-        INSERT INTO aulas (título, objetivo, resumo, data, disciplina, conteúdos, recursos, tags)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-    `, [título, objetivo, resumo, data, disciplina, conteúdos, recursos, tags]);
+        INSERT INTO aulas (título, objetivo, resumo, data, disciplina, conteúdos, recursos, tags, cadastro)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    `, [título, objetivo, resumo, data, disciplina, conteúdos, recursos, tags, cadastro]);
+}
+
+async function atualizarAula(id, dados){
+    const {título, objetivo, resumo, data, disciplina, conteúdos, recursos, tags} = dados;
+    await pool.query(`
+        UPDATE aulas
+        SET título = $2, objetivo = $3, resumo = $4, data = $5, disciplina = $6, conteúdos = $7, recursos = $8, tags = $9
+        WHERE id = $1
+    `, [id, título, objetivo, resumo, data, disciplina, conteúdos, recursos, tags]);
+}
+
+async function deletarAula(id) {
+    await pool.query(`
+        DELETE FROM aulas
+        WHERE id = $1
+        `, [id])
 }
 
 async function listarAulas(offset, limit){
@@ -37,4 +57,4 @@ async function buscarAulas(dados){
     return rows;
 }
 
-module.exports = { inserirAula, listarAulas, contarAulas, buscarAulas }
+module.exports = { inserirAula, listarAulas, atualizarAula, deletarAula, contarAulas, buscarAulas }

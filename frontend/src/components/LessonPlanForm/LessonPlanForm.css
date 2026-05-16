@@ -1,0 +1,231 @@
+/* lesson-plan-form.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.form-modal-content {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  max-width: 768px; /* Equivalente ao max-w-3xl */
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  margin: 0 0 4px 0;
+  color: #111827;
+}
+
+.modal-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.form-space {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.field-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.field-input,
+.field-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  font-family: inherit;
+}
+
+.field-input:focus,
+.field-textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+.field-error-msg {
+  font-size: 12px;
+  color: #ef4444;
+  margin: 0;
+}
+
+/* Área do Smart Assist com IA */
+.ai-banner {
+  border-radius: 12px;
+  border: 1px dashed rgba(79, 70, 229, 0.4);
+  background-color: #f5f3ff;
+  padding: 16px;
+}
+
+.ai-banner-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ai-title {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  margin: 0 0 4px 0;
+  color: #111827;
+}
+
+.ai-description {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.btn-ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #4f46e5;
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-ai:hover:not(:disabled) {
+  background-color: #4338ca;
+}
+
+.btn-ai:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Lista de Tags internas */
+.tags-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tags-flex-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.form-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background-color: #f3f4f6;
+  font-size: 12px;
+  color: #374151;
+}
+
+.tag-remove-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #9ca3af;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tag-remove-btn:hover {
+  color: #ef4444;
+}
+
+/* Rodapé do Modal */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.btn-outline {
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: #f9fafb;
+}
+
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #111827;
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #1f2937;
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

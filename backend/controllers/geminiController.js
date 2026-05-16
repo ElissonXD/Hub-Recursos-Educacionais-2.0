@@ -1,10 +1,17 @@
-import { GoogleGenAI } from "@google/genai";
+// Importações
 
-const ai = new GoogleGenAI({});
+const dotenv = require('dotenv')
+dotenv.config()
+const { GoogleGenAI } = require('@google/genai');
+
+// Configuração
+
+const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY});
 
 async function getResponse(req, res) {
+    const {title, type, description} = req.body;
 
-    const {title, type, description} = req.body
+    const startHr = process.hrtime.bigint();
 
     const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
@@ -22,10 +29,17 @@ async function getResponse(req, res) {
                 {{
                     "description": "sua descrição aqui",
                     "tags": ["tag1", "tag2", "tag3"]
-                }}",`
+                }}`
     });
 
-    return res.status(200).json(response.text);
+    const endHr = process.hrtime.bigint();
+    const durationS = Number(endHr - startHr) / 1e9;
+
+    const tokenUsage = response.totalTokens
+
+    console.log(`[INFO] AI Request: Title = ${title}, Discipline = ${type}, TokenUsage = ${tokenUsage}, Latency = ${durationS.toFixed(2)}s`);
+
+    return res.status(200).json(response.text || response);
 }
 
-module.exports = {}
+module.exports = {getResponse}

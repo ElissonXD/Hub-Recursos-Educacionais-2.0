@@ -2,11 +2,9 @@
 
 const express = require('express')
 const router = express.Router()
-const controller = require('../controllers/healthcheckController')
+const controller = require('../controllers/healthController')
 
 // Endpoints
-router.get('/', controller.healthCheck)
-
 
 
 module.exports = router
