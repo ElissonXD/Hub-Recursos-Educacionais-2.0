@@ -18,11 +18,17 @@ const errorHandler = require('./middlewares/errorHandler')
 
 const app = express()
 
+app.use(express.json())
 app.use(cors())
 
 app.use('/api/aulas', aulasRoute)
 app.use('/api/gemini', geminiRoute)
 app.use('/api/check', healthcheckRoute)
+app.get('/api/db', async (req,res) => {
+    const query = require('./db/query')
+    await  query.inicializarDB()
+    return res.status(200).json({success: true, message: "Banco de dados inicializado com sucesso!"})
+})
 app.use(errorHandler)
 
 module.exports = app

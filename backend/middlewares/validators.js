@@ -9,9 +9,10 @@ function validate(req, res, next){
         return next()
     }
 
+    console.log(`[VALIDATION FAILED] - ${errors.array().map(e => e.msg).join(', ')}`)
+
     return res.status(400).json({
         success: false,
-        errors: errors.array()
     })
 }
 

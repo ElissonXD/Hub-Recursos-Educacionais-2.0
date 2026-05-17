@@ -3,8 +3,8 @@ import { CalendarDays, Pencil, Trash2 } from "lucide-react";
 import "./LessonPlanCard.css"
 
 export function LessonPlanCard({ plan, onEdit, onDelete }) {
-  const date = plan.scheduled_date
-    ? new Date(plan.scheduled_date).toLocaleDateString("pt-BR", {
+  const date = plan.data
+    ? new Date(plan.data).toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "short",
         year: "numeric",
@@ -16,10 +16,10 @@ export function LessonPlanCard({ plan, onEdit, onDelete }) {
       <div className="card-header">
         <div className="card-title-area">
           <p className="card-discipline">
-            {plan.discipline}
+            {plan.disciplina}
           </p>
           <h3 className="card-title">
-            {plan.title}
+            {plan.título}
           </h3>
         </div>
         
@@ -41,7 +41,7 @@ export function LessonPlanCard({ plan, onEdit, onDelete }) {
         </div>
       </div>
 
-      <p className="card-summary">{plan.summary}</p>
+      <p className="card-summary">{plan.resumo}</p>
 
       <div className="card-footer">
         <div className="card-date-box">

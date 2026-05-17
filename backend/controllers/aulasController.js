@@ -4,11 +4,9 @@ const query = require('../db/query')
 
 // Controladores
 
-function getAulas(req,res) {
+async function getAulas(req,res) {
 
-    const {limit, offset} = req.query
-
-    const rows = query.getAulas(limit, offset)
+    const rows = await query.listarAulas()
 
     return res.status(200).json({
         success: true,
@@ -16,10 +14,10 @@ function getAulas(req,res) {
     })
 }
 
-function postAula(req,res){
+async function postAula(req,res){
     const dados = {...req.body, cadastro: new Date()}
 
-    query.inserirAula(dados)
+    await query.inserirAula(dados)
 
     return res.status(201).json({
         success: true,
@@ -27,9 +25,9 @@ function postAula(req,res){
     })
 }
 
-function putAula(req,res){
+async function putAula(req,res){
     
-    query.atualizarAula(req.body.id, req.body)
+    await query.atualizarAula(req.body.id, req.body)
 
     return res.status(200).json({
         success: true,
@@ -37,9 +35,9 @@ function putAula(req,res){
     })
 }
 
-function deleteAula(req,res){
+async function deleteAula(req,res){
     
-    query.deletarAula(req.body.id)
+    await query.deletarAula(req.query.id)
 
     return res.status(200).json({
         success: true,

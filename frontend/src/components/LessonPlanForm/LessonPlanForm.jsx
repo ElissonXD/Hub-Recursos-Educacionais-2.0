@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Sparkles, Loader2, X } from "lucide-react";
 import { Toaster, toast } from "react-hot-toast";
-
-// Importando o arquivo de estilos separado
+import api from "../../../api";
 import "./LessonPlanForm.css";
 
-// Mantenha as referências para os seus utilitários de API locais
-
 const emptyForm = {
-  title: "",
-  objective: "",
-  summary: "",
-  scheduled_date: "",
-  discipline: "",
-  contents: "",
-  resources: "",
+  título: "",
+  objetivo: "",
+  resumo: "",
+  data_prevista: "",
+  disciplina: "",
+  conteúdos: "",
+  recursos: "",
   tags: [],
 };
 
@@ -30,13 +27,13 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
       setForm(
         initial
           ? {
-              title: initial.title,
-              objective: initial.objective,
-              summary: initial.summary,
-              scheduled_date: initial.scheduled_date?.slice(0, 10) ?? "",
-              discipline: initial.discipline,
-              contents: initial.contents,
-              resources: initial.resources,
+              título: initial.título,
+              objetivo: initial.objetivo,
+              resumo: initial.resumo,
+              data_prevista: initial.data?.slice(0, 10) ?? "",
+              disciplina: initial.disciplina,
+              conteúdos: initial.conteúdos,
+              recursos: initial.recursos,
               tags: initial.tags ?? [],
             }
           : emptyForm
@@ -64,36 +61,36 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
 
   function validate() {
     const e = {};
-    if (!form.title.trim()) e.title = "Informe o título";
-    if (!form.discipline.trim()) e.discipline = "Informe a disciplina";
-    if (!form.objective.trim()) e.objective = "Informe o objetivo";
-    if (!form.summary.trim()) e.summary = "Informe a ementa";
-    if (!form.scheduled_date) e.scheduled_date = "Informe a data";
+    if (!form.título.trim()) e.title = "Informe o título";
+    if (!form.disciplina.trim()) e.discipline = "Informe a disciplina";
+    if (!form.objetivo.trim()) e.objective = "Informe o objetivo";
+    if (!form.resumo.trim()) e.summary = "Informe a ementa";
+    if (!form.data_prevista) e.scheduled_date = "Informe a data";
     setErrors(e);
     return Object.keys(e).length === 0;
   }
 
   async function handleSmartAssist() {
-    if (!form.title || !form.discipline || !form.summary) {
+    if (!form.título || !form.disciplina || !form.resumo) {
       toast.error("Preencha Título, Disciplina e Ementa antes de gerar.");
       return;
     }
     setAiLoading(true);
     try {
-      const r = await api.smartAssist({
-        title: form.title,
-        discipline: form.discipline,
-        summary: form.summary,
+      const r = await api.postGemini({
+        title: form.título,
+        type: form.disciplina,
+        description: form.resumo,
       });
       setForm((f) => ({
         ...f,
-        contents: r.contents ?? f.contents,
-        resources: r.resources ?? f.resources,
+        conteúdos: r.contents ?? f.conteúdos,
+        recursos: r.resources ?? f.recursos,
         tags: r.tags?.length ? Array.from(new Set([...f.tags, ...r.tags])) : f.tags,
       }));
       toast.success("Recomendações aplicadas.");
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "A IA não conseguiu responder. Tente novamente.");
+      toast.error("A IA não conseguiu responder. Tente novamente.");
     } finally {
       setAiLoading(false);
     }
@@ -104,13 +101,13 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
     if (!validate()) return;
     setSaving(true);
     try {
-      if (initial?.id != null) await api.update(initial.id, form);
-      else await api.create(form);
+      if (initial?.id != null) await api.putAula({...form, id: initial.id});
+      else await api.postAula(form);
       toast.success(initial ? "Plano atualizado." : "Plano criado.");
       onSaved();
       onOpenChange(false);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Não foi possível salvar.");
+      toast.error("Não foi possível salvar.");
     } finally {
       setSaving(false);
     }
@@ -135,8 +132,8 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
           <div className="form-grid-2">
             <Field label="Título da aula" error={errors.title}>
               <input
-                value={form.title}
-                onChange={(e) => update("title", e.target.value)}
+                value={form.título}
+                onChange={(e) => update("título", e.target.value)}
                 placeholder="Ex.: Introdução ao OSPF"
                 className="field-input"
               />
@@ -144,8 +141,8 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
             
             <Field label="Disciplina" error={errors.discipline}>
               <input
-                value={form.discipline}
-                onChange={(e) => update("discipline", e.target.value)}
+                value={form.disciplina}
+                onChange={(e) => update("disciplina", e.target.value)}
                 placeholder="Ex.: Redes de Computadores"
                 className="field-input"
               />
@@ -155,8 +152,8 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
           <Field label="Objetivo" error={errors.objective}>
             <textarea
               rows={2}
-              value={form.objective}
-              onChange={(e) => update("objective", e.target.value)}
+              value={form.objetivo}
+              onChange={(e) => update("objetivo", e.target.value)}
               placeholder="O que o aluno deve alcançar?"
               className="field-textarea"
             />
@@ -165,8 +162,8 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
           <Field label="Ementa / Resumo" error={errors.summary}>
             <textarea
               rows={3}
-              value={form.summary}
-              onChange={(e) => update("summary", e.target.value)}
+              value={form.resumo}
+              onChange={(e) => update("resumo", e.target.value)}
               placeholder="Resumo do conteúdo da aula"
               className="field-textarea"
             />
@@ -206,8 +203,8 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
             <Field label="Data prevista" error={errors.scheduled_date}>
               <input
                 type="date"
-                value={form.scheduled_date}
-                onChange={(e) => update("scheduled_date", e.target.value)}
+                value={form.data_prevista}
+                onChange={(e) => update("data_prevista", e.target.value)}
                 className="field-input"
               />
             </Field>
@@ -250,8 +247,8 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
           <Field label="Conteúdos">
             <textarea
               rows={4}
-              value={form.contents}
-              onChange={(e) => update("contents", e.target.value)}
+              value={form["conteúdos"]}
+              onChange={(e) => update("conteúdos", e.target.value)}
               placeholder="Tópicos principais que serão abordados"
               className="field-textarea"
             />
@@ -260,8 +257,8 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
           <Field label="Recursos de apoio">
             <textarea
               rows={3}
-              value={form.resources}
-              onChange={(e) => update("resources", e.target.value)}
+              value={form.recursos}
+              onChange={(e) => update("recursos", e.target.value)}
               placeholder="Links, livros, vídeos, slides…"
               className="field-textarea"
             />

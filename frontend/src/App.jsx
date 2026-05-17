@@ -13,11 +13,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Toaster, toast } from "react-hot-toast";
-
-// Importação da API (ajuste o caminho se necessário)
-import { api } from "../api";
-
-// Mantendo os seus caminhos customizados de componentes
+import api from "../api";
 import { LessonPlanForm } from "./components/LessonPlanForm/LessonPlanForm";
 import { LessonPlanCard } from "./components/LessonPlanCard/LessonPlanCard";
 
@@ -72,7 +68,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const res = await api.list(params);
+      const res = await api.getAulas(params);
       setData(res.data ?? []);
       setTotal(res.total ?? 0);
     } catch (err) {
@@ -97,7 +93,7 @@ function App() {
   async function confirmDelete() {
     if (!deleting) return;
     try {
-      await api.remove(deleting.id);
+      await api.deleteAula(deleting.id);
       toast.success("Plano excluído com sucesso!");
       setDeleting(null);
       load();
@@ -107,7 +103,7 @@ function App() {
   }
 
   const allDisciplines = useMemo(
-    () => Array.from(new Set(data.map((p) => p.discipline).filter(Boolean))),
+    () => Array.from(new Set(data.map((p) => p.disciplina).filter(Boolean))),
     [data]
   );
 
@@ -141,20 +137,6 @@ function App() {
       </header>
 
       <main className="main-content">
-        {/* Hero Banner */}
-        <section className="hero-banner">
-          <div style={{ position: "relative", zIndex: 2 }}>
-            <span className="status-badge">Smart Assist com IA</span>
-            <h2 className="hero-title">
-              Planeje aulas com clareza,<br />
-              <span style={{ fontStyle: "italic", color: "#4f46e5" }}>organize com elegância.</span>
-            </h2>
-            <p className="hero-text">
-              Cadastre, edite e consulte planos de aula. Use a IA para gerar conteúdos,
-              recursos e tags em segundos — você revisa, ajusta e publica.
-            </p>
-          </div>
-        </section>
 
         {/* Filtros */}
         <section className="filters-section">
@@ -344,7 +326,7 @@ function App() {
           <div className="modal-content">
             <h3 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "8px" }}>Excluir plano?</h3>
             <p style={{ fontSize: "14px", color: "#6b7280", marginBottom: "20px" }}>
-              Esta ação não pode ser desfeita. O plano <strong>{deleting?.title}</strong> será removido permanentemente.
+              Esta ação não pode ser desfeita. O plano <strong>{deleting?.título}</strong> será removido permanentemente.
             </p>
             <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
               <button onClick={() => setDeleting(null)} className="cancel-button">

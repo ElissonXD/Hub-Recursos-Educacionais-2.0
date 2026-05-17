@@ -6,7 +6,7 @@ const controller = require('../controllers/geminiController')
 
 // Endpoints
 
-router.get('/', controller.getResponse)
+router.post('/', controller.postResponse)
 
 
 module.exports = router
