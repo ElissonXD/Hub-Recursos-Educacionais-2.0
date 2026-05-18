@@ -12,9 +12,15 @@ const aulaValidation = [
     validate
 ]
 
-
+const geminiValidation = [
+    body('title').trim().isString().notEmpty().withMessage('Título é obrigatório'),
+    body('type').trim().isString().notEmpty().withMessage('Disciplina é obrigatória'),
+    body('description').trim().isString().notEmpty().withMessage('Descrição é obrigatória'),
+    validate
+]
 
 
 module.exports = {
-    aulaValidation
+    aulaValidation,
+    geminiValidation
 }

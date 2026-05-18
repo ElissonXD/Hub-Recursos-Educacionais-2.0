@@ -16,10 +16,10 @@ import { Toaster, toast } from "react-hot-toast";
 import api from "../api";
 import { LessonPlanForm } from "./components/LessonPlanForm/LessonPlanForm";
 import { LessonPlanCard } from "./components/LessonPlanCard/LessonPlanCard";
+import { LessonPlanFull } from "./components/LessonPlanFull/LessonPlanFull";
 
 const PER_PAGE = 9;
 
-// Hook customizado convertido para JS
 function useDebounced(value, ms = 350) {
   const [v, setV] = useState(value);
   useEffect(() => {
@@ -49,6 +49,7 @@ function App() {
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [deleting, setDeleting] = useState(null);
+  const [viewingFull, setViewingFull] = useState(null);
 
   const params = useMemo(
     () => ({
@@ -111,7 +112,6 @@ function App() {
     <div className="container">
       <Toaster position="top-right" />
 
-      {/* Header */}
       <header className="header">
         <div className="header-content">
           <div className="brand-container">
@@ -138,7 +138,6 @@ function App() {
 
       <main className="main-content">
 
-        {/* Filtros */}
         <section className="filters-section">
           <div className="filters-grid">
             <div className="search-container">
@@ -229,8 +228,6 @@ function App() {
             </div>
           )}
         </section>
-
-        {/* Listagem / Estados da UI */}
         <section>
           {loading ? (
             <div className="center-state">
@@ -276,11 +273,10 @@ function App() {
                       setFormOpen(true);
                     }}
                     onDelete={(plan) => setDeleting(plan)}
+                    onView={(plan) => setViewingFull(plan)}
                   />
                 ))}
               </div>
-
-              {/* Paginação */}
               <div className="pagination-container">
                 <p style={{ fontSize: "14px", color: "#6b7280" }}>
                   {total} {total === 1 ? "plano" : "planos"} • página {page} de {totalPages}
@@ -311,16 +307,17 @@ function App() {
           <span>Backend: <code className="code-block">{import.meta.env.VITE_API_URL ?? "http://localhost:8000"}</code></span>
         </footer>
       </main>
-
-      {/* Form Modal */}
       <LessonPlanForm
         open={formOpen}
         onOpenChange={setFormOpen}
         initial={editing}
         onSaved={load}
       />
-
-      {/* Alerta de Confirmação de Deleção */}
+      <LessonPlanFull 
+        open={!!viewingFull}
+        onClose={() => setViewingFull(null)}
+        plan={viewingFull}
+      />
       {!!deleting && (
         <div className="modal-overlay">
           <div className="modal-content">

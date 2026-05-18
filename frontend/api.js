@@ -20,11 +20,18 @@ const api = {
       }
 
       if (params.tags && params.tags.length > 0){
-        filteredAulas = filteredAulas.filter(aula => aula.tags.every(tag => tag.tags?.some(t => t.toLowerCase().includes(tag.toLowerCase()))));
+        filteredAulas = filteredAulas.filter(aula => params.tags.every(tag => aula.tags?.some(t => t.toLowerCase().includes(tag.toLowerCase()))));
       }
 
       if (params.date){
-        filteredAulas = filteredAulas.filter((aula) => aula.data?.startsWith(params.date));
+        filteredAulas = filteredAulas.filter((aula) => {
+          const aulaDate = new Date(aula.data)
+          const year = aulaDate.getFullYear();
+          const month = String(aulaDate.getMonth() + 1).padStart(2, '0');
+          const day = String(aulaDate.getDate()).padStart(2, '0');
+          const formattedDate = `${year}-${month}-${day}`;
+          return formattedDate === params.date;
+        });
       }
 
       filteredAulas.sort((a, b) => {

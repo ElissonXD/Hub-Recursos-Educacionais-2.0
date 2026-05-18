@@ -51,4 +51,8 @@ async function inicializarDB(){
     cadastro DATE NOT NULL);`)
 }
 
-module.exports = { inserirAula, listarAulas, atualizarAula, deletarAula, inicializarDB}
+async function healthTest() {
+    await pool.query('SELECT 1');
+}
+
+module.exports = { inserirAula, listarAulas, atualizarAula, deletarAula, inicializarDB, healthTest}

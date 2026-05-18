@@ -6,5 +6,6 @@ const controller = require('../controllers/healthController')
 
 // Endpoints
 
+router.get('/', controller.getHealth)
 
 module.exports = router

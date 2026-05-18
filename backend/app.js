@@ -23,7 +23,7 @@ app.use(cors())
 
 app.use('/api/aulas', aulasRoute)
 app.use('/api/gemini', geminiRoute)
-app.use('/api/check', healthcheckRoute)
+app.use('/api/health', healthcheckRoute)
 app.get('/api/db', async (req,res) => {
     const query = require('./db/query')
     await  query.inicializarDB()

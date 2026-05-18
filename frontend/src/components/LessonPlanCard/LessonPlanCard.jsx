@@ -2,7 +2,7 @@ import React from "react";
 import { CalendarDays, Pencil, Trash2 } from "lucide-react";
 import "./LessonPlanCard.css"
 
-export function LessonPlanCard({ plan, onEdit, onDelete }) {
+export function LessonPlanCard({ plan, onEdit, onDelete, onView }) {
   const date = plan.data
     ? new Date(plan.data).toLocaleDateString("pt-BR", {
         day: "2-digit",
@@ -12,7 +12,7 @@ export function LessonPlanCard({ plan, onEdit, onDelete }) {
     : "—";
 
   return (
-    <article className="card-container">
+    <article className="card-container" onClick={() => onView?.(plan)} style={{ cursor: "pointer" }}>
       <div className="card-header">
         <div className="card-title-area">
           <p className="card-discipline">
@@ -23,7 +23,7 @@ export function LessonPlanCard({ plan, onEdit, onDelete }) {
           </h3>
         </div>
         
-        <div className="card-actions">
+        <div className="card-actions" onClick={(e) => e.stopPropagation()}>
           <button 
             onClick={() => onEdit(plan)} 
             aria-label="Editar"

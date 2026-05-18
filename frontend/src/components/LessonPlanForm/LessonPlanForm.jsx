@@ -113,7 +113,6 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
     }
   }
 
-  // Se o modal estiver fechado, não renderiza nada em tela
   if (!open) return null;
 
   return (
@@ -169,7 +168,6 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
             />
           </Field>
 
-          {/* Seção Inteligente da IA */}
           <div className="ai-banner">
             <div className="ai-banner-content">
               <div>
@@ -287,7 +285,6 @@ export function LessonPlanForm({ open, onOpenChange, initial, onSaved }) {
   );
 }
 
-// Componente utilitário interno convertido para JavaScript funcional limpo
 function Field({ label, error, children }) {
   return (
     <div className="field-container">
