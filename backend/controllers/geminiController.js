@@ -39,7 +39,7 @@ async function postResponse(req, res) {
     const endHr = process.hrtime.bigint();
     const durationS = Number(endHr - startHr) / 1e9;
 
-    const tokenUsage = response.totalTokens
+    const tokenUsage = response.usageMetadata.totalTokenCount
 
     console.log(`[INFO] AI Request: Title = ${title}, Discipline = ${type}, TokenUsage = ${tokenUsage}, Latency = ${durationS.toFixed(2)}s`);
     
