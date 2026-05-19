@@ -23,12 +23,12 @@ jobs:
       - name: Install & Lint Backend
         run: |
           cd backend
-          npm ci
+          npm install --no-audit --no-fund
           npm run lint
 
       # Frontend Lint
       - name: Install & Lint Frontend
         run: |
           cd frontend
-          npm ci
+          npm install --no-audit --no-fund
           npm run lint 
