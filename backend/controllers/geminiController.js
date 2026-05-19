@@ -18,10 +18,10 @@ async function postResponse(req, res) {
         contents: `Você é um assistente pedagógico especializado em organizar materiais didáticos.
                 Sua tarefa é gerar descrições úteis para alunos com base no 'Título', 'Disciplina' e no 'Resumo' do material fornecido.
                 Além do mais, você deve sugerir recursos adicionais relacionados ao conteúdo, como vídeos, artigos ou documentos, que
-                possa acrescentar à descrição para enriquecer a experiência de aprendizado.
+                possa acrescentar à descrição para enriquecer a experiência de aprendizado. 
                 
                 A descrição deve ser clara, concisa, engajadora e explicar o que o aluno pode esperar aprender ou encontrar neste recurso.
-                Os recursos devem ser em formato de texto.
+                Os recursos devem ser em formato de texto, onde cada recurso está separado por um ponto e vírgula, não coloque links, apenas o título do recurso e o nome do local onde foi encontrado.
                 Além disso, sugira 3 tags relevantes para categorizar o material. As tags devem ser palavras únicas, contidas em um array
 
                 Título do Material: ${title}
