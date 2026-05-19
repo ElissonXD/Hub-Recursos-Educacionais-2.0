@@ -1,6 +1,6 @@
 # Hub de Recursos Educacionais 2.0
 
-O Hub de Recursos Educacionais 2.0 é uma aplicação full-stack desenvolvida como parte do processo de seleção para a vaga de manutenção de software no VLAB. O projeto consiste em um CRUD completo para o gerenciamento de planos de aula, integrado a serviços de inteligência artificial, servindo também como portfólio de desenvolvimento.
+O Hub de Recursos Educacionais 2.0 é uma aplicação full-stack desenvolvida como parte do processo de seleção para a vaga de manutenção de software no VLAB. O projeto consiste em um CRUD completo para o gerenciamento de planos de aula, integrado a serviços do Gemini, servindo também como portfólio de desenvolvimento.
 
 O projeto inclui um vídeo demonstrativo de curta duração que detalha o funcionamento prático da aplicação e as etapas de seu desenvolvimento.
 
@@ -10,6 +10,9 @@ O projeto inclui um vídeo demonstrativo de curta duração que detalha o funcio
 
 ## Especificações Técnicas
 
+### IA utilizada
+- Gemini 3 Flash
+  
 ### Frontend
 - Framework: React + Vite
 - Biblioteca de Ícones: Lucide-React
