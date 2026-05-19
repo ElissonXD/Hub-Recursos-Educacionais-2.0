@@ -28,6 +28,7 @@ export function LessonPlanCard({ plan, onEdit, onDelete, onView }) {
             onClick={() => onEdit(plan)} 
             aria-label="Editar"
             className="card-btn"
+            data-testid = "Editar"
           >
             <Pencil size={16} />
           </button>
@@ -35,6 +36,7 @@ export function LessonPlanCard({ plan, onEdit, onDelete, onView }) {
             onClick={() => onDelete(plan)}
             aria-label="Excluir"
             className="card-btn card-btn-delete"
+            data-testid = "Excluir"
           >
             <Trash2 size={16} />
           </button>
