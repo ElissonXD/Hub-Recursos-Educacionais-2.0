@@ -6,6 +6,8 @@ O projeto inclui um vídeo demonstrativo de curta duração que detalha o funcio
 
 **Acesse o deploy da aplicação:** [https://hub-recursos.onrender.com](https://hub-recursos.onrender.com)
 
+**OBS**: O banco estará disponível até dia **18 de junho de 2026**. Após este período, a instância do banco será desativada e a aplicação hospedada não terá mais suporte para persistência e armazenamento de novos dados.
+
 ## Especificações Técnicas
 
 ### Frontend
