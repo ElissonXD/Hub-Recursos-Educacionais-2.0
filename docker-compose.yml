@@ -44,7 +44,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     env_file:
-      - .env
+      - .env.test
     depends_on:
       - db-tests
     profiles:
@@ -56,7 +56,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     env_file:
-      - .env
+      - .env.test
     profiles:
       - test 
     command: npm test
@@ -64,10 +64,8 @@ services:
   db-tests:
     image: postgres:17-alpine
     restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=testpassword
-      - POSTGRES_DB=testdb
+    env_file:
+      - .env.test
     ports:
       - "5433:5432"
     profiles:

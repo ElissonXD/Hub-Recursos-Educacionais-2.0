@@ -24,11 +24,11 @@ jobs:
         run: |
           cd backend
           npm ci
-          npm run lint || echo "Linter não configurado no backend ainda"
+          npm run lint
 
       # Frontend Lint
       - name: Install & Lint Frontend
         run: |
           cd frontend
           npm ci
-          npm run lint || echo "Linter não configurado no frontend ainda"
+          npm run lint 

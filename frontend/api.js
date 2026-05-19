@@ -35,15 +35,28 @@ const api = {
       }
 
       filteredAulas.sort((a, b) => {
-          const field = params.sort || "created_at";
-          const valA = a[field] || "";
-          const valB = b[field] || "";
+          let field = params.sort || "created_at";
 
-          if (typeof valA === "string") {
-            return params.order === "asc"
-              ? valA.localeCompare(valB)
-              : valB.localeCompare(valA);
+          if (field === "title") field = "título"
+          if (field === "created_at") field = "data"
+
+          const valA = a[field] ?? "";
+          const valB = b[field] ?? "";
+
+          if (field === "data" && valA && valB) {
+            const timeA = new Date(valA).getTime();
+            const timeB = new Date(valB).getTime();
+            if (!isNaN(timeA) && !isNaN(timeB)) {
+              return params.order === "asc" ? timeA - timeB : timeB - timeA;
+            }
           }
+
+          if (typeof valA === "string" && typeof valB === "string") {
+            return params.order === "asc"
+              ? valA.localeCompare(valB, "pt-BR", { sensitivity: "base" })
+              : valB.localeCompare(valA, "pt-BR", { sensitivity: "base" });
+          }
+
           return params.order === "asc" ? valA - valB : valB - valA;
         });
 

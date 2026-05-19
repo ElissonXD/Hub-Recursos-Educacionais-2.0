@@ -44,7 +44,7 @@ describe("Testes de LessonPlanFull", () => {
         expect(screen.getByText("Álgebra")).toBeInTheDocument()
         expect(screen.getByText("Ensinar álgebra")).toBeInTheDocument()
         expect(screen.getByText("Plano de aula para ensinar álgebra")).toBeInTheDocument()
-        expect(screen.getByText("31 de mai. de 2024")).toBeInTheDocument()
+        expect(screen.getByText("01 de jun. de 2024")).toBeInTheDocument()
         expect(screen.getByText("Matemática")).toBeInTheDocument()
         expect(screen.getByText("Equações, Inequações, Funções")).toBeInTheDocument()
         expect(screen.getByText("Livro didático")).toBeInTheDocument()

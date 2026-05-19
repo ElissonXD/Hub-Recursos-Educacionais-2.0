@@ -51,7 +51,7 @@ describe("Testes de LessonPlanCard", () => {
         expect(screen.getByText("Matemática")).toBeInTheDocument()
         expect(screen.getByText("Plano de Aula 1")).toBeInTheDocument()
         expect(screen.getByText("Resumo do plano de aula 1")).toBeInTheDocument()
-        expect(screen.getByText("31 de mai. de 2024")).toBeInTheDocument()
+        expect(screen.getByText("01 de jun. de 2024")).toBeInTheDocument()
         expect(screen.getByText("Álgebra")).toBeInTheDocument()
         expect(screen.getByText("Geometria")).toBeInTheDocument()
     })

@@ -120,7 +120,7 @@ function App() {
             </div>
             <div>
               <p className="subtitle">Plataforma Pedagógica</p>
-              <h1 className="title">Planos de Aula</h1>
+              <h1 className="title">Hub Recursos Educacionais</h1>
             </div>
           </div>
           <button
