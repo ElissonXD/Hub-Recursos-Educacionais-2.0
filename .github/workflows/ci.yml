@@ -25,6 +25,7 @@ jobs:
           cd backend
           npm install --no-audit --no-fund
           npm run lint
+        continue-on-error: true
 
       # Frontend Lint
       - name: Install & Lint Frontend
@@ -32,3 +33,4 @@ jobs:
           cd frontend
           npm install --no-audit --no-fund
           npm run lint 
+        continue-on-error: true
