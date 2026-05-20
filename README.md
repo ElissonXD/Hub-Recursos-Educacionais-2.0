@@ -70,11 +70,15 @@ docker-compose --profile dev up
 
 O frontend estará disponível na porta 3000 e o backend disponível na porta 5000
 
+> **Nota:** Lembre-se de configurar a tabela do banco de dados. Isso pode ser feito acessando o endpoint `/api/db` ou executando o comando manualmente no terminal.
+
 Para executar a suíte de testes em um ambiente isolado:
 
 ```cmd
 docker-compose --profile test up
 ```
+
+Certifique-se de configurar o arquivo `.env.test`. Você pode criá-lo copiando o modelo  `.env.example` existente
 
 ### Opção 2: Execução Local via node e npm
 Instale as dependências em ambas as pastas compartilhadas ('frontend' e 'backend'):
@@ -95,6 +99,14 @@ npm run dev
 ```
 
 O frontend estará disponível na porta 5173 e o backend estará disponível na porta 5000
+
+Para rodar os testes, acesse a pasta do backend ou do frontend e execute o comando:
+
+```cmd
+npm test
+```
+
+> **Nota:** Lembre-se de configurar a tabela do banco de dados. Isso pode ser feito acessando o endpoint `/api/db` ou executando o comando manualmente no terminal.
 
 ## Diferenciais Implementados
 
