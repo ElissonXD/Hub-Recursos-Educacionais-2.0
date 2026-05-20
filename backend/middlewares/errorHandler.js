@@ -1,4 +1,4 @@
-function errorHandler(err, req, res) {
+function errorHandler(err, req, res, next) {
     console.error(`[ERROR] ${new Date().toISOString()} - ${err.message}`)
 
     const statusCode = err.statusCode || 500
